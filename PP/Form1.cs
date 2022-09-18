@@ -12,9 +12,21 @@ namespace PP
 {
     public partial class Form1 : Form
     {
+
+        public static string magicNumber(string src, string number, string nameConst, string type)
+            {
+                return src;
+            }
+        
+
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
