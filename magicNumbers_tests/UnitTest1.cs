@@ -45,25 +45,85 @@ namespace magicNumbers_tests
         [TestMethod]
         public void TestMethod4()
         {
-            string src = "if(country === 'Germany')   bruttoPrice = nettoPrice * 1.19;";
+            string src = "if(country == 'Germany')   bruttoPrice = nettoPrice * 1.19;";
             string name = "vatRate";
             string namber = "1.19";
             string type = "double";
 
             Assert.AreEqual(
-                    "const double vatRate = 1.19;\nif(country === 'Germany') bruttoPrice = nettoPrice * vatRate;",
+                    "const double vatRate = 1.19;\nif(country == 'Germany') bruttoPrice = nettoPrice * vatRate;",
                     PP.Form1.magicNumber(src, name, namber, type));
         }
         [TestMethod]
         public void TestMethod5()
         {
-            string src = "formula = f*9,8;";
+            string src = "formula = f*9,8;\nnumber = 23*9,8";
             string name = "g";
             string namber = "9,8";
             string type = "float";
 
             Assert.AreEqual(
-                    "const float g = 9,8;\nformula = f*g;",
+                    "const float g = 9,8;\nformula = f*g;\nnumber = 23*g",
+                    PP.Form1.magicNumber(src, name, namber, type));
+        }
+        [TestMethod]
+        public void TestMethod6()
+        {
+            string src = "if(country == \"1.19\") bruttoPrice = nettoPrice * 1.19;";
+            string name = "vatRate";
+            string namber = "1.19";
+            string type = "double";
+
+            Assert.AreEqual(
+                    "const double vatRate = 1.19;\nif(country == \"1.19\") bruttoPrice = nettoPrice * vatRate;",
+                    PP.Form1.magicNumber(src, name, namber, type));
+        }
+        [TestMethod]
+        public void TestMethod7()
+        {
+            string src = "const float g=10;\nformula = f*9,8;\nnumber = 23*9,8";
+            string name = "g";
+            string namber = "9,8";
+            string type = "float";
+
+            Assert.AreEqual(
+                    "const float g=10;\nformula = f*9,8;\nnumber = 23*9,8",
+                    PP.Form1.magicNumber(src, name, namber, type));
+        }
+        [TestMethod]
+        public void TestMethod8()
+        {
+            string src = "formula = f*9,8;//9,8 - g\nnumber = 23*9,8";
+            string name = "g";
+            string namber = "9,8";
+            string type = "float";
+
+            Assert.AreEqual(
+                    "const float g=9,8;\nformula = f*g;//9,8 - g\nnumber = 23*g",
+                    PP.Form1.magicNumber(src, name, namber, type));
+        }
+        [TestMethod]
+        public void TestMethod9()
+        {
+            string src = "#include <iostream>\nformula = f*9,8;";
+            string name = "g";
+            string namber = "9,8";
+            string type = "float";
+
+            Assert.AreEqual(
+                    "#include <iostream>\nconst float g=9,8;\nformula = f*g;",
+                    PP.Form1.magicNumber(src, name, namber, type));
+        }
+        [TestMethod]
+        public void TestMethod10()
+        {
+            string src = "int a = 10;\nformula = f*9,8;";
+            string name = "g";
+            string namber = "9,8";
+            string type = "float";
+
+            Assert.AreEqual(
+                    "int a = 10;\nconst float g = 9,8;\nformula = f*9,8;",
                     PP.Form1.magicNumber(src, name, namber, type));
         }
 
