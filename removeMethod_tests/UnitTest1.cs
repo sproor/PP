@@ -61,6 +61,60 @@ namespace removeMethod_tests
                     "f*9.8;",
                     PP.Form1.RemoveMethod(Src, Name, Code));
         }
+        [TestMethod]
+        public void TestMethod6()
+        {
+            string Src = "function Foo() { return 2; } if(name == \"Foo\") bruttoPrice = nettoPrice * 1.19 / Foo();";
+            string Name = "Foo";
+            string Code = "return 2;";
 
+            Assert.AreEqual(
+                    "if(name == \"Foo\") bruttoPrice = nettoPrice * 1.19 / 2;",
+                    PP.Form1.RemoveMethod(Src, Name, Code));
+        }
+        [TestMethod]
+        public void TestMethod7()
+        {
+            string Src = "function Foo() { return pi/360; } int a = 0;";
+            string Name = "Foo";
+            string Code = "return pi/360;";
+
+            Assert.AreEqual(
+                    "int a = 0;",
+                    PP.Form1.RemoveMethod(Src, Name, Code));
+        }
+        [TestMethod]
+        public void TestMethod8()
+        {
+            string Src = "function Foo() { return 9.8; } formula = f*Foo() // Foo :: This is test of Foo()";
+            string Name = "Foo";
+            string Code = "return 9.8;";
+
+            Assert.AreEqual(
+                    "formula = f*9.8 // Foo :: This is test of Foo()",
+                    PP.Form1.RemoveMethod(Src, Name, Code));
+        }
+        [TestMethod]
+        public void TestMethod9()
+        {
+            string Src = "#include <iostream>\nfunction Foo() { return 9.8*a; }\nformula = f*Foo();";
+            string Name = "Foo";
+            string Code = "return 9.8*a;";
+
+            Assert.AreEqual(
+                    "#include <iostream>\nformula = f*9.8*a;",
+                    PP.Form1.RemoveMethod(Src, Name, Code));
+        }
+        [TestMethod]
+        public void TestMethod10()
+        {
+            string Src = "function Foo() { return f*9.8; } int a = 10;\nformula = Foo();";
+            string Name = "Foo";
+            string Code = "return f*9.8;";
+
+            Assert.AreEqual(
+                    "int a = 10;\nformula = f*9.8;",
+                    PP.Form1.RemoveMethod(Src, Name, Code));
+        }
     }
 }
