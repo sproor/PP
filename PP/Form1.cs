@@ -19,6 +19,11 @@ namespace PP
             }
         
 
+        public static string RemoveMethod( string InSrc, string InFuncName, string InCode )
+        {
+            return InSrc;
+        }
+
         public Form1()
         {
             InitializeComponent();

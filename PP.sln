@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PP", "PP\PP.csproj", "{0EEA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "magicNumbers_tests", "magicNumbers_tests\magicNumbers_tests.csproj", "{F95A9638-0B48-467C-BA1D-C0A1AF337CF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "removeMethod_tests", "removeMethod_tests\removeMethod_tests.csproj", "{3417CAD4-D755-4E03-B26C-47AFDF4592B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F95A9638-0B48-467C-BA1D-C0A1AF337CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F95A9638-0B48-467C-BA1D-C0A1AF337CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F95A9638-0B48-467C-BA1D-C0A1AF337CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3417CAD4-D755-4E03-B26C-47AFDF4592B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3417CAD4-D755-4E03-B26C-47AFDF4592B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3417CAD4-D755-4E03-B26C-47AFDF4592B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3417CAD4-D755-4E03-B26C-47AFDF4592B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
