@@ -89,6 +89,11 @@ namespace PP
             textBox1.ContextMenuStrip = contextMenuStrip1;
             magic.Click += magic_Click;
 
+            ToolStripMenuItem removeMethod = new ToolStripMenuItem("Удалить метод");
+            contextMenuStrip1.Items.Add(removeMethod);
+            textBox1.ContextMenuStrip = contextMenuStrip1;
+            removeMethod.Click += removeMethod_Click;
+
         }
         private void magic_Click(object sender, EventArgs e)
         {
@@ -107,6 +112,26 @@ namespace PP
             }
 
         }
+
+        private void removeMethod_Click(object sender, EventArgs e)
+        {
+            if (textBox1.SelectedText.Length > 0)
+            {
+                selectCode f2 = new selectCode();
+                f2.ShowDialog();
+
+                string      funcName = f2.funcName;
+                string      funcCode = f2.funcCode;
+                textBox1.Text = textBox1.Text.Replace(textBox1.SelectedText, RemoveMethod(textBox1.SelectedText, funcName, funcCode));
+                //textBox1.Text = textBox1.Text.Insert(textBox1.Text.IndexOf("int main"), "void " + funcName + "(){ " + funcCode + " }" + Environment.NewLine);
+            }
+            else
+            {
+                MessageBox.Show("select code");
+            }
+
+        }
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
