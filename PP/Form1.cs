@@ -18,33 +18,77 @@ namespace PP
             string newSrc = src;
             //MessageBox.Show(src.IndexOf("int main").ToString());
             newSrc = newSrc.Replace(value, nameConst);
-            newSrc =  newSrc.Insert(src.IndexOf("int main"), "const "+ typeConst + " "+ nameConst+" = "+ value+";" + Environment.NewLine);                 
+            newSrc = newSrc.Insert(src.IndexOf("int main"), "const " + typeConst + " " + nameConst + " = " + value + ";" + Environment.NewLine);
             return newSrc;
         }
 
 
 
-        public static string RemoveMethod(string InSrc, string InFuncName, string InCode)
+        public static string RemoveMethod(string InUseCode, string InFuncName, string InFuncCode)
         {
-            return InSrc;
+            int IndexReturn = InFuncCode.IndexOf("return ");
+            if (IndexReturn >= 0)
+            {
+                InFuncCode = InFuncCode.Remove(IndexReturn, 7);       // 6 is size of word 'return '
+                int IndexSemicolon = InFuncCode.LastIndexOf(';');
+                if (IndexSemicolon >= 0)
+                {
+                    InFuncCode = InFuncCode.Remove(IndexSemicolon, 1);
+                }
+            }
+
+            string FunctionSemantic = InFuncName + "();";
+            if (InUseCode.Contains(FunctionSemantic))
+            {
+                string CodeFormat = "";
+                int Index = InUseCode.IndexOf(FunctionSemantic);
+                if (Index >= 0)
+                {
+                    string[] Parts = InUseCode.Split(new[] { FunctionSemantic }, StringSplitOptions.RemoveEmptyEntries);
+                    if (Parts.Length > 0 && Parts[0].StartsWith(" "))
+                    {
+                        Parts[0] = Parts[0].Remove(0, 1);
+                    }
+
+                    if (Parts.Length > 0 && Index > InUseCode.IndexOf(Parts[0]))
+                    {
+                        CodeFormat = Parts[0] + "{0};";
+                    }
+                    else if (Parts.Length > 0)
+                    {
+                        CodeFormat = "{0}; " + Parts[0];
+                    }
+                    else
+                    {
+                        CodeFormat = "{0};";
+                    }
+
+                    for (int Idx = 1; Idx < Parts.Length; ++Idx)
+                    {
+                        CodeFormat += Parts[Idx];
+                    }
+
+                }
+
+                return string.Format(CodeFormat, InFuncCode);
+            }
+            else
+            {
+                return InUseCode;
+            }
         }
+
 
         public Form1()
         {
             InitializeComponent();
-            textBox1.Text = "int main() {" + Environment.NewLine + "int maxStudents = numClassrooms * 30;" + Environment.NewLine +"}";
+            textBox1.Text = "int main() {" + Environment.NewLine + "int maxStudents = numClassrooms * 30;" + Environment.NewLine + "}";
 
-           ToolStripMenuItem magic = new ToolStripMenuItem("Вынести константу");
+            ToolStripMenuItem magic = new ToolStripMenuItem("Вынести константу");
             contextMenuStrip1.Items.Add(magic);
             textBox1.ContextMenuStrip = contextMenuStrip1;
             magic.Click += magic_Click;
 
-            string src = "int main() {" + Environment.NewLine + "int a = 10;\nformula = f*9,8;" + Environment.NewLine + "}";
-            string name = "g";
-            string namber = "9,8";
-            string typeConst = "float";
-
-            textBox1.Text = magicNumber(src, namber, name, typeConst);
         }
         private void magic_Click(object sender, EventArgs e)
         {
