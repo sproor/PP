@@ -94,6 +94,11 @@ namespace PP
             textBox1.ContextMenuStrip = contextMenuStrip1;
             removeMethod.Click += removeMethod_Click;
 
+            ToolStripMenuItem renameVariable = new ToolStripMenuItem("Переименовать переменную");
+            contextMenuStrip1.Items.Add(renameVariable);
+            textBox1.ContextMenuStrip = contextMenuStrip1;
+            renameVariable.Click += renameVariable_Click;
+
         }
         private void magic_Click(object sender, EventArgs e)
         {
@@ -130,6 +135,22 @@ namespace PP
                 MessageBox.Show("select code");
             }
 
+        }
+
+        private void renameVariable_Click(object sender, EventArgs e)
+        {
+            if (textBox1.SelectedText.Length > 0)
+            {
+                selectRename    f3 = new selectRename();
+                Refactor        rfc = new Refactor();
+                f3.ShowDialog();
+
+                textBox1.Text = textBox1.Text.Replace(textBox1.SelectedText, rfc.rename(textBox1.SelectedText, f3.var1, f3.var2));
+            }
+            else
+            {
+                MessageBox.Show("select code");
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
